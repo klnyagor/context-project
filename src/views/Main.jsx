@@ -2,9 +2,10 @@ import { Button, Collapse, Container } from 'react-bootstrap';
 import UserTable from './components/UserTable';
 import { useUser } from '../contexts/UserContext';
 import { useState } from 'react';
+import UserForm from './components/UserForm';
 
 const Main = () => {
-  let { listUsers } = useUser();
+  let { listUsers, handleModal } = useUser();
   let [open, setOpen] = useState(false);
 
   const handleListUser = () => {
@@ -19,6 +20,7 @@ const Main = () => {
     listUsers();
     setOpen(!open);
   };
+
   return (
     <>
       {/* <Button variant="primary" onClick={handleClickShow}>
@@ -36,12 +38,13 @@ const Main = () => {
       <Button
         variant="warning"
         onClick={() => {
+          handleModal();
           console.log('clicou cadastrar');
         }}
       >
         Cadastrar Usuário
       </Button>
-      <> Formulário </>
+      <UserForm />
 
       <Collapse in={open}>
         <Container id="listar-usuarios" className="mt-3">

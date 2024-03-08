@@ -6,6 +6,12 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   let [users, setUsers] = useState([]);
 
+  let [showModal, setShowModal] = useState(false);
+
+  const handleModal = () => {
+    setShowModal(!showModal);
+  };
+
   const listUsers = async () => {
     await api
       .get('users')
@@ -18,7 +24,9 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ users, setUsers, listUsers }}>
+    <UserContext.Provider
+      value={{ users, setUsers, listUsers, showModal, handleModal }}
+    >
       {children}
     </UserContext.Provider>
   );
