@@ -4,7 +4,7 @@ import { useUser } from '../../contexts/UserContext';
 const UserTable = () => {
   let { users } = useUser();
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover variant="dark">
       <thead>
         <tr>
           <th>ID</th>

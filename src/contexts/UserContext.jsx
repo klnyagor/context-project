@@ -23,9 +23,21 @@ export const UserProvider = ({ children }) => {
       });
   };
 
+  const cadastrarUser = async (user) => {
+    await api.post('users', user);
+    console.log('POST: Cadastro de usuário');
+  };
+
   return (
     <UserContext.Provider
-      value={{ users, setUsers, listUsers, showModal, handleModal }}
+      value={{
+        users,
+        setUsers,
+        listUsers,
+        showModal,
+        handleModal,
+        cadastrarUser,
+      }}
     >
       {children}
     </UserContext.Provider>

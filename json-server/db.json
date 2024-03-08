@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "id": 1, 
-      "nome": "Dummy joe", 
+      "id": 1,
+      "nome": "Dummy joe",
       "email": "listagem@email.com"
     }
   ]

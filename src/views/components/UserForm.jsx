@@ -3,7 +3,16 @@ import { useUser } from '../../contexts/UserContext';
 import { Alert, Button, Form, Modal } from 'react-bootstrap';
 
 const UserForm = () => {
-  let { showModal, handleModal } = useUser();
+  let { showModal, handleModal, cadastrarUser } = useUser();
+
+  const handleForm = (values, { setSubmitting }) => {
+    setTimeout(() => {
+      setSubmitting(false);
+      cadastrarUser(values);
+      alert(`"Usuário cadastrado": ${JSON.stringify(values, null, 2)}`);
+      handleModal();
+    }, 400);
+  };
 
   return (
     <>
@@ -27,12 +36,7 @@ const UserForm = () => {
             }
             return errors;
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
-          }}
+          onSubmit={handleForm}
         >
           {({
             values,

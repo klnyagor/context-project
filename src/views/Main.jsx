@@ -8,17 +8,16 @@ const Main = () => {
   let { listUsers, handleModal } = useUser();
   let [open, setOpen] = useState(false);
 
-  const handleListUser = () => {
-    // api
-    //   .get('users/')
-    //   .then((res) => {
-    //     console.log(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+  const handleClickListar = () => {
     listUsers();
     setOpen(!open);
+    // console.log('clicou listar');
+  };
+
+  const handleClickCadastro = () => {
+    setOpen(false); // gam byarra TODO: Atualizar listagem
+    handleModal();
+    // console.log('clicou cadastrar');
   };
 
   return (
@@ -26,22 +25,10 @@ const Main = () => {
       {/* <Button variant="primary" onClick={handleClickShow}>
         Mudar show
       </Button> */}
-      <Button
-        variant="success"
-        onClick={() => {
-          handleListUser();
-          console.log('clicou listar');
-        }}
-      >
+      <Button variant="success" onClick={handleClickListar}>
         Listar Usuários
       </Button>
-      <Button
-        variant="warning"
-        onClick={() => {
-          handleModal();
-          console.log('clicou cadastrar');
-        }}
-      >
+      <Button variant="warning" onClick={handleClickCadastro}>
         Cadastrar Usuário
       </Button>
       <UserForm />
