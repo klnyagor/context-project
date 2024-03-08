@@ -1,9 +1,12 @@
 import { Formik } from 'formik';
 import { useUser } from '../../contexts/UserContext';
 import { Alert, Button, Form, Modal } from 'react-bootstrap';
+import { UserValidationSchema } from '../../validation/UserValidations';
 
 const UserForm = () => {
   let { showModal, handleModal, cadastrarUser } = useUser();
+
+  const userValidation = UserValidationSchema;
 
   const handleForm = (values, { setSubmitting }) => {
     setTimeout(() => {
@@ -22,20 +25,21 @@ const UserForm = () => {
         </Modal.Header>
         <Formik
           initialValues={{ nome: '', email: '' }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.nome) {
-              errors.nome = 'Required';
-            }
-            if (!values.email) {
-              errors.email = 'Required';
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = 'Invalid email address';
-            }
-            return errors;
-          }}
+          // validate={(values) => {
+          //   const errors = {};
+          //   if (!values.nome) {
+          //     errors.nome = 'Required';
+          //   }
+          //   if (!values.email) {
+          //     errors.email = 'Required';
+          //   } else if (
+          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          //   ) {
+          //     errors.email = 'Invalid email address';
+          //   }
+          //   return errors;
+          // }}
+          validationSchema={userValidation}
           onSubmit={handleForm}
         >
           {({
@@ -60,8 +64,8 @@ const UserForm = () => {
                     onBlur={handleBlur}
                     value={values.nome}
                   />
-                  {!errors.nome || (
-                    <Alert variant="danger">
+                  {!errors.nome || !touched.nome || (
+                    <Alert variant="warning">
                       {errors.nome && touched.nome && errors.nome}
                     </Alert>
                   )}
@@ -76,8 +80,8 @@ const UserForm = () => {
                     onBlur={handleBlur}
                     value={values.email}
                   />
-                  {!errors.email || (
-                    <Alert variant="danger">
+                  {!errors.email || !touched.email || (
+                    <Alert variant="warning">
                       {errors.email && touched.email && errors.email}
                     </Alert>
                   )}
