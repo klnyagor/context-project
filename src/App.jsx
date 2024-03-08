@@ -1,10 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from './views/Main';
+import { UserProvider } from './contexts/UserContext';
 
 function App() {
   return (
     <>
-      <Main />
+      <UserProvider>
+        <Main />
+      </UserProvider>
     </>
   );
 }

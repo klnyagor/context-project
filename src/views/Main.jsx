@@ -1,6 +1,17 @@
+import api from '../api/ContextApi';
 import { Button } from 'react-bootstrap';
 
 const Main = () => {
+  const handleListUser = () => {
+    api
+      .get('users/')
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       {/* <Button variant="primary" onClick={handleClickShow}>
@@ -9,7 +20,8 @@ const Main = () => {
       <Button
         variant="success"
         onClick={() => {
-          console.log('clicou listar');
+          handleListUser();
+          console.log(api.get('users/'));
         }}
       >
         Listar Usuários
