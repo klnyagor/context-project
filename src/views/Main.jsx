@@ -1,16 +1,23 @@
-import api from '../api/ContextApi';
-import { Button } from 'react-bootstrap';
+import { Button, Collapse, Container } from 'react-bootstrap';
+import UserTable from './components/UserTable';
+import { useUser } from '../contexts/UserContext';
+import { useState } from 'react';
 
 const Main = () => {
+  let { listUsers } = useUser();
+  let [open, setOpen] = useState(false);
+
   const handleListUser = () => {
-    api
-      .get('users/')
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // api
+    //   .get('users/')
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    listUsers();
+    setOpen(!open);
   };
   return (
     <>
@@ -21,7 +28,7 @@ const Main = () => {
         variant="success"
         onClick={() => {
           handleListUser();
-          console.log(api.get('users/'));
+          console.log('clicou listar');
         }}
       >
         Listar Usuários
@@ -35,7 +42,12 @@ const Main = () => {
         Cadastrar Usuário
       </Button>
       <> Formulário </>
-      <> Listagem </>
+
+      <Collapse in={open}>
+        <Container id="listar-usuarios" className="mt-3">
+          <UserTable />
+        </Container>
+      </Collapse>
     </>
   );
 };

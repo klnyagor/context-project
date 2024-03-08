@@ -1,9 +1,27 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
+import api from '../api/ContextApi';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  return <UserContext.Provider value={{}}> {children} </UserContext.Provider>;
+  let [users, setUsers] = useState([]);
+
+  const listUsers = async () => {
+    await api
+      .get('users')
+      .then((res) => {
+        setUsers([...res.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return (
+    <UserContext.Provider value={{ users, setUsers, listUsers }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export const useUser = () => {
